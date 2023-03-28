@@ -1,0 +1,75 @@
+//using System;
+/*
+Лісник. Визначити розмір території лісу. 
+Сортування дерев по типу, кількості, віці. 
+Інформація про стан кожного дерева та наявність шкідників на ньому. 
+Зрубати старе та посадити нове дерево.*/
+class Forest
+{
+    public string type;
+    public int number;
+
+    public Forest(string type, int number)
+    {
+        this.type = type;
+        this.number = number;
+    }
+
+    public string Size()
+    {
+        return $"Площа лiсу  {number} у деревах";
+    }
+}
+
+class Tree : Forest
+{
+    public int Age;
+    public int Pest;
+    public string Type2;
+
+    public Tree(string Type, int Number, int Age, int Pest, string Type2 = "iнший тип") : base(Type, Number)
+    {
+        if (this.type == "z")
+        {
+            this.type = Type2;
+        }
+
+        this.Age = Age;
+        this.Pest = Pest;
+    }
+
+    public string Info()
+    {
+        return $"Дерево має {type} тип, йому {Age} рiк i на ньому {Pest} шкiдникiв";
+    }
+
+    public void NewOr()
+    {
+        if (Age > 50)
+        {
+            Age = 0;
+            Pest = 0;
+        }
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.Write("Введiть кiлькiсть дерев : ");
+        int a = int.Parse(Console.ReadLine());
+        Console.Write("Введiть вiк дерева, яке можливо потрiбно зрубати : ");
+        int b = int.Parse(Console.ReadLine());
+        Console.Write("Введiть кiлькiсть шкiдникiв на цьому деревi : ");
+        int c = int.Parse(Console.ReadLine());
+        Tree d = new Tree("z", a, b, c, "листяний");//тип,кількість дерев, роки,шкідники,тип
+        Console.WriteLine(d.Info());
+        Console.WriteLine(d.Size());
+        if (b > 50)
+        {
+            d.NewOr();
+            Console.WriteLine(d.Info());
+        }
+    }
+}
