@@ -1,0 +1,83 @@
+using System;
+/*
+Створити об'єкт класу Круг, 
+використовуючи класи Точка, Коло. 
+Методи: задання розмірів, зміна радіуса, визначення належності точки даного кола.
+*/
+namespace Task_1
+{
+    public class Point
+    {
+        public string t { get; set; }
+
+        public Point(string t)
+        {
+            this.t = t;
+        }
+    }
+
+    public class Around : Point
+    {
+        public int radius { get; set; }
+        public int len { get; set; }
+
+        public Around(string t, int radius) : base(t)
+        {
+            this.radius = radius;
+        }
+
+        public string doAround()
+        {
+            int len = (int)Math.Floor(2 * Math.PI * this.radius);
+            string kolo = "";
+            for (int i = 0; i < len; i++)
+            {
+                kolo += this.t;
+            }
+            this.len = kolo.Length + this.t.Length;
+            return kolo;
+        }
+    }
+
+    public class Circle : Around
+    {
+        public double S { get; set; }
+
+        public Circle(string t, int radius) : base(t, radius)
+        {
+        }
+
+        public void doCircle()
+        {
+            this.S = Math.Floor(Math.PI * (this.radius * this.radius)) + this.t.Length;
+        }
+
+        public string nalezhit(int par)
+        {
+            if (par >= this.radius)
+            {
+                return "Не належить";
+            }
+            else
+            {
+                return "Належить";
+            }
+        }
+    }
+
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.Write("Введiть радiус кола : ");
+            int r = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Довжина кола в * :");
+            Circle krug = new Circle("*", r);
+            Console.WriteLine(krug.doAround());
+            krug.doCircle();
+            Console.Write("Введiть значення для точки кругa ,щоб дiзнатися чи належить вона йому : ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(krug.nalezhit(n));
+        }
+    }
+}
